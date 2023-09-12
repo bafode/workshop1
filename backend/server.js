@@ -5,9 +5,14 @@ import colors from 'colors'
 import morgan from 'morgan'
 
 
+import connectDB from './config/db.js'
+
+
 
 
 dotenv.config()
+
+connectDB()
 
 
 const app = express()
