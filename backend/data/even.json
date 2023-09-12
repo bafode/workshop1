@@ -1,0 +1,42 @@
+[
+    {
+      "nom": "event 1",
+      "organisateurs": [
+      "organi@gmail.com",
+      "organi1@gmail.com"
+       ],
+       "invites": [
+      "invit1@gmail.com",
+      "invite2@gmail.com"
+       ],
+      "debut":{
+       "date":"18/10/2023",
+       "heure":"02:00 pm"
+        },
+       "fin":{
+       "date":"18/10/2023",
+       "heure":"04:00 pm"
+        }
+    },
+  
+   {
+      "nom": "event 2",
+      "organisateurs": [
+      "organi7@gmail.com",
+      "organi1@gmail.com"
+       ],
+       "invites": [
+      "invit3@gmail.com",
+      "invite4@gmail.com"
+       ],
+      "debut":{
+       "date":"19/10/2023",
+       "heure":"04:00 pm"
+        },
+       "fin":{
+       "date":"18/10/2023",
+       "heure":"06:00 pm"
+        }
+    }
+    
+  ]
