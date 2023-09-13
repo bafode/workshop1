@@ -6,8 +6,12 @@ import morgan from 'morgan'
 
 
 import connectDB from './config/db.js'
+import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 
 
+
+//Routes
+import evenementRoutes from './routes/evenements.js'
 
 
 dotenv.config()
@@ -22,7 +26,13 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use(express.json())
-app.use(express.urlencoded())
+app.use(express.urlencoded({ extended: true }))
+
+app.use('/api/v1/evenements', evenementRoutes)
+
+//middleware
+app.use(notFound)
+app.use(errorHandler)
 
 const PORT = process.env.PORT || 5000
 

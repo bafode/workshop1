@@ -8,8 +8,8 @@
   "type": "module",
   "scripts": {
     "start": "nodemon backend/server",
-    "data:import": "node backend/seeder",
-    "data:destroy": "node backend/seeder -d"
+    "data:import": "node backend/data/seeder",
+    "data:destroy": "node backend/data/seeder -d"
   },
   "dependencies": {
     "colors": "^1.4.0",

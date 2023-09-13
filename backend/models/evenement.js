@@ -17,21 +17,21 @@ const evenementSchema = mongoose.Schema(
     }],
     debut:{
         date:{
-            type: Date,
+            type: String,
              required: true, 
         },
         heure:{
-            type: Date,
+            type: String,
              required: true, 
         }
     },
     fin:{
         date:{
-            type: Date,
+            type: String,
              required: true, 
         },
         heure:{
-            type: Date,
+            type: String,
              required: true, 
         }
     },
@@ -45,6 +45,6 @@ const evenementSchema = mongoose.Schema(
   }
 )
 
-const Evenement = mongoose.model('Evenement', evenementSchema)
+const Evenement = mongoose.model('Evenement', evenementSchema);
 
-export default Evenement
+export default Evenement;
