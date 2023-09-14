@@ -5,7 +5,7 @@ import {parse} from "csv-parse"
 import axios from "axios"
 import colors from 'colors'
 
-const filepath = "./backend/data/eventList.csv"
+const filepath = "./data/eventList.csv"
 const createReadStream=()=>{
   var csvData = [];
   return new Promise(resolve => {
@@ -47,7 +47,6 @@ const getEvents = asyncHandler(async (req, res) => {
 // @route   POST /api/import
 // @access  Private/Admin
 const importEventsFromSeeder = asyncHandler(async (req, res) => {
-// importData()
 const config = {
   headers: {
     Authorization: `Bearer ${process.env.GRAPH_API_TOKEN}`,
@@ -130,11 +129,40 @@ const destroyEventFromSeeder = asyncHandler(async (req, res) => {
     await Evenement.deleteMany()
     console.log('Data Destroyed!'.red.inverse)
     res.status(200).json({message:"Data Destroyed"})
- })
+})
+ 
+// @desc    Fetch single event
+// @route   GET /api/v1/events/:id
+// @access  Public
+const getEventById = asyncHandler(async (req, res) => {
+  const event = await Evenement.findById(req.params.id)
+
+  if (event) {
+    res.json(event)
+  } else {
+    res.status(404)
+    throw new Error('Product not found')
+  }
+})
+
+// @desc    Delete an event
+// @route   DELETE /api/v1/events/:id
+// @access  Private/Admin
+const deleteEvent= asyncHandler(async (req, res) => {
+  const event = await Evenement.findById(req.params.id)
+  if (!event) {
+    res.status(404)
+    throw new Error('Event not found')
+  } 
+  await Evenement.findOneAndDelete({ _id: req.params.id })
+  res.json({ message: 'Event removed' })
+})
 
 export {
   getEvents,
   importEventsFromSeeder,
-  destroyEventFromSeeder
+  destroyEventFromSeeder,
+  getEventById,
+  deleteEvent
  
 }

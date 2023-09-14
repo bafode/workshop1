@@ -2,7 +2,7 @@ import express from 'express'
 const router = express.Router()
 import {
  importEventsFromSeeder,
- destroyEventFromSeeder,
+    destroyEventFromSeeder 
  
 } from '../controllers/evenements.js'
 
