@@ -1,10 +1,11 @@
 import express from 'express'
 const router = express.Router()
 import {
- getEvents,
+ importEventsFromSeeder,
+ destroyEventFromSeeder,
  
 } from '../controllers/evenements.js'
 
-router.route('/').get(getEvents);
+router.route('/').post(importEventsFromSeeder).delete(destroyEventFromSeeder);
 
 export default router

@@ -111,10 +111,11 @@ export const importData = async () => {
   }
 
 
-  export const destroyData = async () => {
+  const destroyData = async () => {
     try {
     
       await Evenement.deleteMany()
+  
       console.log('Data Destroyed!'.red.inverse)
       process.exit()
     } catch (error) {

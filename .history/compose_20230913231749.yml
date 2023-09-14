@@ -1,6 +1,6 @@
 services:
     node:
-        container_name: events-server
+        container_name: demo-node
         image: 'node:latest'
         working_dir: /home/node/app
         command:

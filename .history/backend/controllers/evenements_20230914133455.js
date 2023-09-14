@@ -81,55 +81,15 @@ const config = {
          
     }
   })
-
-  try {
-      
-    const promises = sampleData.map(event => axios.post(`${process.env.GRAPH_API_HOST}/v1.0/me/calendar/events`, event, config));
-    const values = await Promise.all(promises)
-    const dataToSave=values.map(response => {
-      return{
-        subject: response.data.subject,
-        start: {
-          dateTime:response.data.start.dateTime ,
-          timeZone: response.data.start.timeZone 
-       },
-       end: {
-        dateTime:response.data.end.dateTime ,
-        timeZone: response.data.end.timeZone 
-        },
-        location: response.data.location.displayName,
-        attendees: response.data.attendees.map((at) => {
-          return {
-            name: at.emailAddress.name,
-            address: at.emailAddress.address
-          }
-        }) ,
-        organizer:{
-          name: response.data.organizer.emailAddress.name,
-          address: response.data.organizer.emailAddress.address
-        },
-        joinUrl: response.data.onlineMeeting.joinUrl
-      }
-    })
-    
-    await Evenement.deleteMany()
-    
-
-    await Evenement.insertMany(dataToSave)
-    console.log('Data Imported!'.green.inverse)
-  } catch (error) {
-    console.error(`${error}`.red.inverse)
-  }
   res.status(201).json({message:"Data Imported",data:sampleData})
 })
 
 // @desc    Destroy Data
 // @route   POST /api/import
 // @access  Private/Admin
-const destroyEventFromSeeder = asyncHandler(async (req, res) => {   
-    await Evenement.deleteMany()
-    console.log('Data Destroyed!'.red.inverse)
-    res.status(200).json({message:"Data Destroyed"})
+const destroyEventFromSeeder = asyncHandler(async (req, res) => {
+ // destroyData()
+   res.status(200).json({message:"Data Destroyed"})
  })
 
 export {

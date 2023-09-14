@@ -87,6 +87,7 @@ const config = {
     const promises = sampleData.map(event => axios.post(`${process.env.GRAPH_API_HOST}/v1.0/me/calendar/events`, event, config));
     const values = await Promise.all(promises)
     const dataToSave=values.map(response => {
+      console.log(response.data)
       return{
         subject: response.data.subject,
         start: {
@@ -126,10 +127,9 @@ const config = {
 // @desc    Destroy Data
 // @route   POST /api/import
 // @access  Private/Admin
-const destroyEventFromSeeder = asyncHandler(async (req, res) => {   
-    await Evenement.deleteMany()
-    console.log('Data Destroyed!'.red.inverse)
-    res.status(200).json({message:"Data Destroyed"})
+const destroyEventFromSeeder = asyncHandler(async (req, res) => {
+ // destroyData()
+   res.status(200).json({message:"Data Destroyed"})
  })
 
 export {

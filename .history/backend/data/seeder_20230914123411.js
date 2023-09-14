@@ -27,11 +27,13 @@ function createReadStream(){
   }
   
 
+  
 
 
 
 
-export const importData = async () => {
+
+const importData = async () => {
   const config = {
     headers: {
       Authorization: `Bearer ${process.env.GRAPH_API_TOKEN}`,
@@ -65,6 +67,10 @@ export const importData = async () => {
            
       }
     })
+    
+  //console.log(sampleData)
+  // const { data } = await axios.post(`${process.env.GRAPH_API_HOST}/v1.0/me/calendar/events`, order, config)
+  
   
     try {
       
@@ -111,10 +117,11 @@ export const importData = async () => {
   }
 
 
-  export const destroyData = async () => {
+  const destroyData = async () => {
     try {
     
       await Evenement.deleteMany()
+  
       console.log('Data Destroyed!'.red.inverse)
       process.exit()
     } catch (error) {

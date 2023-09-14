@@ -102,10 +102,10 @@ export const importData = async () => {
   
       await Evenement.insertMany(dataToSave)
       console.log('Data Imported!'.green.inverse)
-      process.exit()
+     // process.exit()
     } catch (error) {
       console.error(`${error}`.red.inverse)
-      process.exit(1)
+     // process.exit(1)
     }
    
   }
@@ -119,12 +119,12 @@ export const importData = async () => {
       process.exit()
     } catch (error) {
       console.error(`${error}`.red.inverse)
-      process.exit(1)
+    //  process.exit(1)
     }
   }
   
-  if (process.argv[2] === '-d') {
-    destroyData()
-  } else {
-    importData()
-  }
+  // if (process.argv[2] === '-d') {
+  //   destroyData()
+  // } else {
+  //   importData()
+  // }

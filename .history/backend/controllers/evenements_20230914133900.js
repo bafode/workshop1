@@ -126,10 +126,9 @@ const config = {
 // @desc    Destroy Data
 // @route   POST /api/import
 // @access  Private/Admin
-const destroyEventFromSeeder = asyncHandler(async (req, res) => {   
-    await Evenement.deleteMany()
-    console.log('Data Destroyed!'.red.inverse)
-    res.status(200).json({message:"Data Destroyed"})
+const destroyEventFromSeeder = asyncHandler(async (req, res) => {
+ // destroyData()
+   res.status(200).json({message:"Data Destroyed"})
  })
 
 export {

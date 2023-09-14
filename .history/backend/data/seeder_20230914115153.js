@@ -27,11 +27,13 @@ function createReadStream(){
   }
   
 
+  
 
 
 
 
-export const importData = async () => {
+
+const importData = async () => {
   const config = {
     headers: {
       Authorization: `Bearer ${process.env.GRAPH_API_TOKEN}`,
@@ -65,42 +67,16 @@ export const importData = async () => {
            
       }
     })
+    
+  //console.log(sampleData)
+  // const { data } = await axios.post(`${process.env.GRAPH_API_HOST}/v1.0/me/calendar/events`, order, config)
+  
   
     try {
       
       const promises = sampleData.map(event => axios.post(`${process.env.GRAPH_API_HOST}/v1.0/me/calendar/events`, event, config));
       const values = await Promise.all(promises)
-      const dataToSave=values.map(response => {
-        console.log(response.data)
-        return{
-          subject: response.data.subject,
-          start: {
-            dateTime:response.data.start.dateTime ,
-            timeZone: response.data.start.timeZone 
-         },
-         end: {
-          dateTime:response.data.end.dateTime ,
-          timeZone: response.data.end.timeZone 
-          },
-          location: response.data.location.displayName,
-          attendees: response.data.attendees.map((at) => {
-            return {
-              name: at.emailAddress.name,
-              address: at.emailAddress.address
-            }
-          }) ,
-          organizer:{
-            name: response.data.organizer.emailAddress.name,
-            address: response.data.organizer.emailAddress.address
-          },
-          joinUrl: response.data.onlineMeeting.joinUrl
-        }
-      })
       
-      await Evenement.deleteMany()
-      
-  
-      await Evenement.insertMany(dataToSave)
       console.log('Data Imported!'.green.inverse)
       process.exit()
     } catch (error) {
@@ -111,10 +87,11 @@ export const importData = async () => {
   }
 
 
-  export const destroyData = async () => {
+  const destroyData = async () => {
     try {
     
       await Evenement.deleteMany()
+  
       console.log('Data Destroyed!'.red.inverse)
       process.exit()
     } catch (error) {

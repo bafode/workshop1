@@ -27,11 +27,13 @@ function createReadStream(){
   }
   
 
+  
 
 
 
 
-export const importData = async () => {
+
+const importData = async () => {
   const config = {
     headers: {
       Authorization: `Bearer ${process.env.GRAPH_API_TOKEN}`,
@@ -65,6 +67,10 @@ export const importData = async () => {
            
       }
     })
+    
+  //console.log(sampleData)
+  // const { data } = await axios.post(`${process.env.GRAPH_API_HOST}/v1.0/me/calendar/events`, order, config)
+  
   
     try {
       
@@ -82,25 +88,27 @@ export const importData = async () => {
           dateTime:response.data.end.dateTime ,
           timeZone: response.data.end.timeZone 
           },
-          location: response.data.location.displayName,
-          attendees: response.data.attendees.map((at) => {
-            return {
-              name: at.emailAddress.name,
-              address: at.emailAddress.address
-            }
-          }) ,
-          organizer:{
-            name: response.data.organizer.emailAddress.name,
-            address: response.data.organizer.emailAddress.address
+          location: {
+            type: String,
+            required: true,
           },
-          joinUrl: response.data.onlineMeeting.joinUrl
+          attendees: [{ name: {
+            type: String,
+            required: true,
+          }, address: {
+            type: String,
+            required: true,
+          } }],
+          organizer:{
+            type: String,
+            required: true,
+          },
+          joinUrl: {
+            type: String,
+            required: true,
+          }
         }
       })
-      
-      await Evenement.deleteMany()
-      
-  
-      await Evenement.insertMany(dataToSave)
       console.log('Data Imported!'.green.inverse)
       process.exit()
     } catch (error) {
@@ -111,10 +119,11 @@ export const importData = async () => {
   }
 
 
-  export const destroyData = async () => {
+  const destroyData = async () => {
     try {
     
       await Evenement.deleteMany()
+  
       console.log('Data Destroyed!'.red.inverse)
       process.exit()
     } catch (error) {

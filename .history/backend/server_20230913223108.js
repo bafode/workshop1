@@ -12,7 +12,6 @@ import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 
 //Routes
 import evenementRoutes from './routes/evenements.js'
-import seederRoutes from './routes/seeder.js'
 
 
 dotenv.config()
@@ -30,8 +29,6 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.use('/api/v1/evenements', evenementRoutes)
-app.use('/api/v1/data', seederRoutes)
-
 
 //middleware
 app.use(notFound)
