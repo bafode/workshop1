@@ -1,0 +1,21 @@
+services:
+    node:
+        container_name: events-container
+        image: 'node:latest'
+        working_dir: /home/node/app
+        command:
+            - /bin/sh
+            - '-c'
+            - 'npm install && npm run dev'
+        ports:
+            - '5000:5000'
+        volumes:
+            - './:/home/node/app'
+        links:
+            - mongo
+    
+    docker-mongo:
+        container_name: demo-mongo
+        image: 'mongo:latest'
+        ports:
+            - '27017:27017'

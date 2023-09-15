@@ -1,0 +1,10 @@
+docker images 
+sudo docker rmi 1d12470fa662
+docker run name:tag
+
+
+docker rm $(docker ps -aq)
+docker ps
+docker ps -a
+docker stop e7daad2c118a
+docker rm e7daad2c118a

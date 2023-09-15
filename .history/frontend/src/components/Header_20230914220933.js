@@ -10,10 +10,10 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar bg='info' variant='dark' expand='lg' collapseOnSelect>
+      <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
         <Container>
           <LinkContainer to='/'>
-            <Navbar.Brand>BeCare Events</Navbar.Brand>
+            <Navbar.Brand>Events</Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
         </Container>
