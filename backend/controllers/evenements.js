@@ -111,7 +111,6 @@ const config = {
       }
     })
     
-    await Evenement.deleteMany()
     
 
     await Evenement.insertMany(dataToSave)
@@ -119,7 +118,7 @@ const config = {
   } catch (error) {
     console.error(`${error}`.red.inverse)
   }
-  res.status(201).json({message:"Data Imported",data:sampleData})
+  res.status(201).json({message:"Data Imported"})
 })
 
 // @desc    Destroy Data
