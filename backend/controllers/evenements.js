@@ -4,8 +4,7 @@ import fs from "fs"
 import {parse} from "csv-parse"
 import axios from "axios"
 import colors from 'colors'
-import papa from "papaparse"
-import { stringify } from 'csv-stringify/sync';
+import * as fastCsv from "fast-csv"
 
 const filepath = "./uploads/csvfile.csv"
 const savedDatafilename = "./saved_from_db.csv";
@@ -161,27 +160,31 @@ const deleteEvent= asyncHandler(async (req, res) => {
 })
 
 const exportSavedData = asyncHandler(async (req, res) => {
-  const events = await Evenement.find({})
-  events.map(ev => {
-    const csvData=papa.unparse(ev)
-    fs.writeFile("./saved_fromdb.csv", csvData, { flag: 'w' }, () => {
-      console.log(csvData)
-    })
-  })
+  
 
-//   const writableStream = fs.createWriteStream(savedDatafilename);
+  const cursor =await Evenement.find().cursor();
+  const transformer = (doc)=> {
+    return {
+        Id: doc._id,
+        subject: doc.subject,
+        location: doc.location,
+        start: doc.start.dateTime,
+        end:doc.end.dateTime,
+        joinUrl: doc.joinUrl
+    };
+  }
+  const filename = './uploads/imported.csv';
 
-// const columns = [
+  res.setHeader('Content-disposition', `attachment; filename=${filename}`);
+  res.writeHead(200, { 'Content-Type': 'text/csv' });
 
-// ];
-//   const stringifier = stringify({ header: true, columns: columns });
-//   const events = await Evenement.find({})
-//   events.map((ev => { 
-//     stringifier.write(ev);
-//     stringifier.pipe(writableStream);
-//   }))
- 
+  res.flushHeaders();
+
+  const csvStream = fastCsv.format({headers: true}).transform(transformer)
   console.log("Finished writing data");
+  const writableStream = fs.createWriteStream(filename);
+  cursor.pipe(csvStream).pipe(writableStream)
+  //cursor.pipe(csvStream).pipe(res);
 })
 export {
   getEvents,
