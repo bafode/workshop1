@@ -27,7 +27,7 @@ const getEvents = asyncHandler(async (req, res) => {
 
 // @desc    Create a product
 // @route   POST /api/products
-// @access  Private/Admin
+// @access  Public
 const createEvent = asyncHandler(async (req, res) => {
   const event = new Evenement(req.body)
 
@@ -35,8 +35,17 @@ const createEvent = asyncHandler(async (req, res) => {
   res.status(201).json(createdEvent)
 })
 
+// @desc    Create an event via graph api
+// @route   POST /api/events/graph
+// @access  Public
+const createEventOnGraphAPI = asyncHandler(async (req, res) => {
+  console.log(req.body)
+})
+
+
 export {
   getEvents,
-  createEvent
+  createEvent,
+  createEventOnGraphAPI
  
 }
