@@ -8,7 +8,6 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Paginate from '../components/Paginate'
 import { listEvents,destroyEvent,importEvents,deleteEvent } from '../actions/eventActionS'
-import FormContainer from '../components/FormContainer'
 
 const HomeScreen = ({ match }) => {
   const [csvFile, setCsvFile] = useState('')
@@ -87,6 +86,7 @@ const HomeScreen = ({ match }) => {
       setUploading(false)
     }
   }
+
 
 
   return (
@@ -173,6 +173,16 @@ const HomeScreen = ({ match }) => {
         </>
       )}
       
+      
+      {events?.length>0&&(
+       <a href="http://localhost:5000/uploads/imported.csv" target="_blank" rel="noopener noreferrer" download>
+          <Button variant='success'>
+              <i className="fas fa-download"/>
+              Download File
+          </Button>
+      </a>
+      
+      )}
     </>
   )
 }

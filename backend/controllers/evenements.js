@@ -7,7 +7,6 @@ import colors from 'colors'
 import * as fastCsv from "fast-csv"
 
 const filepath = "./uploads/csvfile.csv"
-const savedDatafilename = "./saved_from_db.csv";
 const createReadStream=()=>{
   var csvData = [];
   return new Promise(resolve => {
@@ -54,6 +53,7 @@ const config = {
     Authorization: `Bearer ${process.env.GRAPH_API_TOKEN}`,
   },
 }
+
   const finalData = await createReadStream()
   const sampleData = finalData.map((row) => {
     return  {
@@ -82,6 +82,8 @@ const config = {
          
     }
   })
+
+  console.log(sampleData);
 
   try {
       
@@ -116,6 +118,8 @@ const config = {
     
 
     await Evenement.insertMany(dataToSave)
+    
+    exportSavedData()
     console.log('Data Imported!'.green.inverse)
   } catch (error) {
     console.error(`${error}`.red.inverse)
